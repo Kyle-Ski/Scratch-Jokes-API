@@ -9,7 +9,8 @@ app.use(bodyParser.json())
 app.use(cors())
 
 app.get('/', (req, res) => res.json({
-    "Jokes": `https://infinite-garden-50142.herokuapp.com/jokes`
+    "Jokes": `https://infinite-garden-50142.herokuapp.com/jokes`,
+    "GitHub Repo": "https://github.com/Kyle-Ski/Scratch-Jokes-API"
 }))
 
 app.use('/jokes', routes)
