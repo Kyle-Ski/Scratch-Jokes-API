@@ -19,7 +19,17 @@ const postJoke = (req, res, next) => {
 }
 
 const putJoke = (req, res, next) => {
-
+    let id = req.params.id
+    let {type, setup, punchline} = req.body
+    let edditedJoke = {id, type, setup, punchline}
+    if (!type || !setup || !punchline){
+        return res.json({error: {status: 400, message: "Please make sure you have all fields filled out"}}) 
+    } else if(!Number(id) || id > jokes.length){
+        return res.json({error: {status: 400, message: 'Please enter a valid id number'}}) 
+    } else {
+        jokes[id - 1] = edditedJoke
+        return res.json({'updated joke': edditedJoke})
+    }
 }
 
 const deleteJoke = (req, res, next) => {
