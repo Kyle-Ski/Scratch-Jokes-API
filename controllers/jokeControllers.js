@@ -7,7 +7,7 @@ const getAll = (req, res, next) => {
 const getOne = (req, res, next) => {
     let id = req.params.id
     let theJoke = jokes.filter(joke => joke.id == id)[0]
-    return (!Number(id) || id > jokes.length) ? res.json({error: {status: 400, message: 'Please enter a valid id number'}}) : res.json({joke: theJoke})
+    return (!Number(id) || id > jokes.length) ? res.json({error: {status: 400, message: 'Please enter a valid id number'}}) : res.status(200).json({joke: theJoke})
 }
 
 const postJoke = (req, res, next) => {
@@ -28,12 +28,20 @@ const putJoke = (req, res, next) => {
         return res.json({error: {status: 400, message: 'Please enter a valid id number'}}) 
     } else {
         jokes[id - 1] = edditedJoke
-        return res.json({'updated joke': edditedJoke})
+        return res.status(200).json({'updated joke': edditedJoke})
     }
 }
 
 const deleteJoke = (req, res, next) => {
-
+    const id = req.params.id
+    const deletedJoke = jokes.filter(joke => joke.id == id)
+    if (!Number(id) || id > jokes.length){
+        return res.json({error: {status: 400, message: 'Please enter a valid id number'}})
+    } else {
+        const index = jokes.indexOf(deletedJoke)
+        jokes.splice(index, 1)
+    }
+    return res.status(200).json({"deleted joke": deletedJoke})
 }
 
 module.exports = {
