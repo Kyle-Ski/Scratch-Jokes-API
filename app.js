@@ -6,6 +6,13 @@ const port = process.env.PORT || 3232
 const routes = require('./routes/jokeRoutes')
 
 app.use(bodyParser.json())
+app.use(cors())
+
+app.get('/', (req, res) => res.json({
+    "Jokes": `Jokes deployed link`
+}))
+
+app.use('/jokes', routes)
 
 app.use(notFound);
 app.use(errorHandler);
