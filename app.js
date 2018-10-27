@@ -9,7 +9,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 app.get('/', (req, res) => res.json({
-    "Jokes": `https://agile-falls-28540.herokuapp.com/`
+    "Jokes": `https://infinite-garden-50142.herokuapp.com/jokes`
 }))
 
 app.use('/jokes', routes)
@@ -27,5 +27,5 @@ function notFound(err, req, res, next) {
     res.status(500).send({error: err.message, stack, url: req.originalUrl})
 }
 
-    app.listen(port, () => console.log(process.env.NODE_ENV !== 'production' ? `I got you on http://localhost:${port}`: 'https://agile-falls-28540.herokuapp.com/'))
+    app.listen(port, () => console.log(process.env.NODE_ENV !== 'production' ? `I got you on http://localhost:${port}`: 'https://infinite-garden-50142.herokuapp.com'))
 //adding heroku
