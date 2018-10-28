@@ -6,3 +6,7 @@
 * Data must include 4 fields
 * Full CRUD functionality
 * Each recource must have a unique id 
+
+# To-do:
+* Add a query route to only show a certain number of jokes
+* Create a [React](https://reactjs.org/) front end to show, delete, put and post jokes
