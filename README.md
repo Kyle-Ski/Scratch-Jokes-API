@@ -6,6 +6,7 @@
 * Data must include 4 fields
 * Full CRUD functionality
 * Each recource must have a unique id 
+* Live Deploment 
 
 # To-do:
 * Add a query route to only show a certain number of jokes
