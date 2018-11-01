@@ -36,11 +36,11 @@ const putJoke = (req, res, next) => {
         .update(body)
         .returning('*')
         .then(edditedJoke => res.status(200).json({'updated joke': edditedJoke}))
+        .catch()
 }
 
 const deleteJoke = (req, res, next) => {
     const id = req.params.id
-    console.log('yoooooo')
     return knex('joke')
         .where('id', id)
         .delete()
@@ -48,12 +48,6 @@ const deleteJoke = (req, res, next) => {
         .then(deletedJoke => res.json({"deleted joke": deletedJoke[0]}))
         .catch(err => console.log(err))
 }
-
-function errorFcn (res,error) {
-    console.log('dat error function', error)
-    return res.json({error: error, status: 'num', message: 'wha.. wha happen?'})
-}
-
 module.exports = {
     getAll,
     getOne,
