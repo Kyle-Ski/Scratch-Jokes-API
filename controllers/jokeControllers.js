@@ -5,7 +5,7 @@ const getAll = (req, res, next) => {
     return knex('joke')
         .orderBy('id', 'asc')
         .then(jokes => res.json({jokes: jokes}))
-        .catch(errorFcn)
+        .catch(err => console.log(err))
     
 }
 
