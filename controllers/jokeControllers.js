@@ -25,13 +25,13 @@ const postJoke = (req, res, next) => {
     return knex('joke')
         .insert(body)
         .returning('*')
-        .then(joke => res.json({joke: joke[0]}))
+        .then(joke => res.status(201).json({joke: joke[0]}))
 }
 
 const putJoke = (req, res, next) => {
     let id = req.params.id
     let body = req.body
-    knex('joke')
+    return knex('joke')
         .where('id', id)
         .update(body)
         .returning('*')
@@ -40,14 +40,13 @@ const putJoke = (req, res, next) => {
 
 const deleteJoke = (req, res, next) => {
     const id = req.params.id
-    const deletedJoke = jokes.filter(joke => joke.id == id)
-    if (!Number(id) || id > jokes.length){
-        return res.json({error: {status: 400, message: 'Please enter a valid id number'}})
-    } else {
-        const index = jokes.indexOf(deletedJoke)
-        jokes.splice(index, 1)
-    }
-    return res.status(200).json({"deleted joke": deletedJoke})
+    console.log('yoooooo')
+    return knex('joke')
+        .where('id', id)
+        .delete()
+        .returning('*')
+        .then(deletedJoke => res.json({"deleted joke": deletedJoke[0]}))
+        .catch(err => console.log(err))
 }
 
 function errorFcn (res,error) {
