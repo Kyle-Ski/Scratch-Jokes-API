@@ -1,7 +1,15 @@
-let jokes = require('../models/jokeModels')
+// let jokes = require('../models/jokeModels')
+
+const knex = require('../db/connection')
 
 const getAll = (req, res, next) => {
-    res.json({jokes: jokes})
+    return knex('joke')
+        .orderBy('id', 'asc')
+        .then(jokes => res.json({jokes: jokes}))
+        .catch(error => {
+            res.json({error: {status: 'num', message: 'wha.. wha happen?'}})
+        })
+    
 }
 
 const getOne = (req, res, next) => {

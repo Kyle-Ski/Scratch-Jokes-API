@@ -382,6 +382,7 @@ exports.seed = function(knex, Promise) {
           type: "general",
           setup: "Why did the butcher work extra hours at the shop?",
           punchline: "To make ends meat."
-        }      ]);
+        }      
+      ]);
     });
 };
