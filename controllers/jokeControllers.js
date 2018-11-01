@@ -1,29 +1,33 @@
 // let jokes = require('../models/jokeModels')
 
 const knex = require('../db/connection')
-
 const getAll = (req, res, next) => {
     return knex('joke')
         .orderBy('id', 'asc')
         .then(jokes => res.json({jokes: jokes}))
-        .catch(error => {
-            res.json({error: {status: 'num', message: 'wha.. wha happen?'}})
-        })
+        .catch(errorFcn)
     
 }
 
 const getOne = (req, res, next) => {
     let id = req.params.id
-    let theJoke = jokes.filter(joke => joke.id == id)[0]
-    return (!Number(id) || id > jokes.length) ? res.json({error: {status: 400, message: 'Please enter a valid id number'}}) : res.status(200).json({joke: theJoke})
+    if(!Number(id)) { 
+        res.json({error: {status: 400, message: 'Please enter a valid id number'}}) 
+    } else {
+        return knex('joke')
+            .where('id',id)
+            .then(theJoke => res.status(200).json({joke: theJoke[0]}))
+    }
 }
 
 const postJoke = (req, res, next) => {
-    let {id, type, setup, punchline} = req.body
-    const newJoke = {id: jokes.length +1, type, setup, punchline}
-    return (!type || !setup || !punchline) ? 
-            res.json({error:{status: 400, message: "Please make sure you have all fields filled out"}}) : 
-            res.status(201).json({joke: newJoke}), jokes.push(newJoke)
+    const body = req.body    
+    // return (!type || !setup || !punchline) ? 
+    //         res.json({error:{status: 400, message: "Please make sure you have all fields filled out"}}) : 
+    return knex('joke')
+        .insert(body)
+        .returning('*')
+        .then(joke => res.status(201).json({joke: joke[0]}))
 }
 
 const putJoke = (req, res, next) => {
@@ -50,6 +54,11 @@ const deleteJoke = (req, res, next) => {
         jokes.splice(index, 1)
     }
     return res.status(200).json({"deleted joke": deletedJoke})
+}
+
+function errorFcn (res,error) {
+    console.log('dat error function', error)
+    return res.json({error: error, status: 'num', message: 'wha.. wha happen?'})
 }
 
 module.exports = {
