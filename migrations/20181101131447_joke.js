@@ -1,7 +1,7 @@
 
 exports.up = function(knex, Promise) {
     return knex.schema.createTable('joke', function (table) {
-        table.increments().notNullable()
+        table.increments()
         table.string('type')
         table.string('setup')
         table.string('punchline')
