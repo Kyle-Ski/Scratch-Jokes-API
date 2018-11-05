@@ -25,7 +25,7 @@ const postJoke = (req, res, next) => {
     return knex('joke')
         .insert(body)
         .returning('*')
-        .then(joke => res.status(201).json({joke: joke[0]}))
+        .then(joke => res.json({joke: joke[0]}))
 }
 
 const putJoke = (req, res, next) => {
@@ -35,7 +35,7 @@ const putJoke = (req, res, next) => {
         .where('id', id)
         .update(body)
         .returning('*')
-        .then(edditedJoke => res.status(200).json({'updated joke': edditedJoke}))
+        .then(edditedJoke => res.json({'updated joke': edditedJoke}))
         .catch()
 }
 
