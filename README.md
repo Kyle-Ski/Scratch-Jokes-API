@@ -9,7 +9,7 @@
 - [x] Live Deploment 
 
 # To-do:
-- [] Add a query route to only show a certain number of jokes
-- [] Create a [React](https://reactjs.org/) front end to show, delete, put and post jokes
-- [] Add a query route to get jokes by type 
-    - Add error handling to only accept certain 'types'
+- [ ] Add a query route to only show a certain number of jokes
+- [ ] Create a [React](https://reactjs.org/) front end to show, delete, put and post jokes
+- [ ] Add a query route to get jokes by type 
+- [ ] Add error handling to only accept certain 'types'
